@@ -15,7 +15,7 @@ export const getAllRequestsHandlerBuilder = (dbClient) => (req, res) => {
         pagination.offset = offset;
     }
 
-    return res.json(getRequestsByFilter(dbClient, undefined, pagination));
+    return res.json(getRequestsByFilter(dbClient, null, pagination));
 }
 
 export default (db) => {

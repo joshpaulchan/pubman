@@ -34,7 +34,7 @@ describe('/requests', () => {
         request.query.limit = 'xyz';
         getAllRequestsHandler(request, response)
 
-        expect(getRequestsByFilter).toBeCalledWith(dbClient, undefined, {});
+        expect(getRequestsByFilter).toBeCalledWith(dbClient, null, {});
     });
 
     it('should fail with non-numeric offset', () => {
@@ -42,7 +42,7 @@ describe('/requests', () => {
         request.query.offset = offset;
         getAllRequestsHandler(request, response)
 
-        expect(getRequestsByFilter).toBeCalledWith(dbClient, undefined, {});
+        expect(getRequestsByFilter).toBeCalledWith(dbClient, null, {});
     });
 
     it('should fail with negative offset', () => {
@@ -50,7 +50,7 @@ describe('/requests', () => {
         request.query.offset = offset;
         getAllRequestsHandler(request, response)
 
-        expect(getRequestsByFilter).toBeCalledWith(dbClient, undefined, {});
+        expect(getRequestsByFilter).toBeCalledWith(dbClient, null, {});
     });
 
     it('should fail with negative limit', () => {
@@ -58,7 +58,7 @@ describe('/requests', () => {
         request.query.limit = limit;
         getAllRequestsHandler(request, response)
 
-        expect(getRequestsByFilter).toBeCalledWith(dbClient, undefined, {});
+        expect(getRequestsByFilter).toBeCalledWith(dbClient, null, {});
     });
 
     it('should succeed with numeric limit', () => {
@@ -66,7 +66,7 @@ describe('/requests', () => {
         request.query.limit = limit;
         getAllRequestsHandler(request, response)
 
-        expect(getRequestsByFilter).toBeCalledWith(dbClient, undefined, {
+        expect(getRequestsByFilter).toBeCalledWith(dbClient, null, {
             limit
         });
     });
@@ -76,7 +76,7 @@ describe('/requests', () => {
         request.query.offset = offset;
         getAllRequestsHandler(request, response)
 
-        expect(getRequestsByFilter).toBeCalledWith(dbClient, undefined, {
+        expect(getRequestsByFilter).toBeCalledWith(dbClient, null, {
             offset
         });
     });

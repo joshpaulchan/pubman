@@ -6,9 +6,15 @@ const DEFAULT_LIMIT = 50;
 // `getRequestsByFilter( requestFilters: RequestFilter[], pagination: {limit, offset}) -> Promise<[Request]>
 // gets requests by filters and pagination details
 // `requestFilters` is an array of one or more filters that are AND with each other of different classes, but OR in the same class.
-// i.e. 
+// i.e.
 // (topic:4)&(queue:2||queue:3)&(name:green)
 // should match requests from topic:4 AND (queue:2 or 3) AND name:green (which may very well be an empty set)
+const GET_REQUESTS_BY_FILTER_QUERY = `
+    SELECT r.* FROM requests r
+    LIMIT $limit
+    OFFSET $offset;
+`;
+
 export const getRequestsByFilter = (db, requestFilters, pagination) => {
     return new Promise((resolve, reject) => {
         if (db == null) {
@@ -23,13 +29,7 @@ export const getRequestsByFilter = (db, requestFilters, pagination) => {
         let limit = ((pagination == null) ? DEFAULT_LIMIT : pagination.limit) || DEFAULT_LIMIT;
         let offset = ((pagination == null) ? DEFAULT_OFFSET : pagination.offset) || DEFAULT_OFFSET;
 
-        let sql = `
-            SELECT r.* FROM requests r
-            LIMIT $limit
-            OFFSET $offset;
-        `;
-
-        return db.all(sql, {
+        return db.all(GET_REQUESTS_BY_FILTER_QUERY, {
             $limit: limit,
             $offset: offset
         }, (err, rows) => {

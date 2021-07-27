@@ -1,9 +1,9 @@
-import polka from "polka";
-import {
+const polka = require("polka");
+const {
     getRequestsByFilter
-} from "../repository/request";
+} = require("../repository/request");
 
-export const getAllRequestsHandlerBuilder = (dbClient) => (req, res) => {
+export const getAllRequestsHandler = (req, res) => {
     const limit = parseInt(req.query.limit, 10);
     const offset = parseInt(req.query.offset, 10)
     const pagination = {};
@@ -15,10 +15,10 @@ export const getAllRequestsHandlerBuilder = (dbClient) => (req, res) => {
         pagination.offset = offset;
     }
 
-    return res.json(getRequestsByFilter(dbClient, null, pagination));
+    res.json(getRequestsByFilter(null, pagination));
 }
 
-export default (db) => {
+module.exports = () => {
     return polka()
-        .get('', getAllRequestsHandlerBuilder(db));
+        .get('', getAllRequestsHandler)
 }

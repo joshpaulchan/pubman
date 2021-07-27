@@ -2,7 +2,7 @@ import {
     getRequestsByFilter
 } from "../repository/request";
 import {
-    getAllRequestsHandlerBuilder
+    getAllRequestsHandler
 } from "./request";
 
 jest.mock("../repository/request");
@@ -14,7 +14,7 @@ describe('/requests', () => {
     let request;
     let response;
     beforeEach(() => {
-        getAllRequestsHandler = getAllRequestsHandlerBuilder(dbClient);
+        getAllRequestsHandler = getAllRequestsHandler(dbClient);
         request = {
             params: {},
             query: {}
